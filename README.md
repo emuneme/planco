@@ -1,14 +1,14 @@
-# **PROJECT_NAME**
+# Planco - Gestão Inteligente de Obras
 
-A modern Next.js application with TypeScript and Tailwind CSS.
+Sistema completo para gestão de custos, aprovações e solicitações de materiais em obras de construção civil.
 
-## Features
+## Principais Funcionalidades
 
-- ⚡ **Next.js 15** - React framework for production
-- 🎨 **Tailwind CSS** - Utility-first CSS framework
-- 🔥 **TypeScript** - Type-safe development
-- 📦 **App Router** - Latest Next.js routing system
-- 🌙 **Dark Mode** - Built-in dark mode support
+- **Dashboard Administrativo**: Visão geral de custos em tempo real.
+- **Portal do Usuário (Portal do Encarregado)**: Mobile-first, para solicitações de material no terreno.
+- **Gestão Financeira**: Fluxo de caixa e exportação profissional para PDF.
+- **Aprovações**: Fluxo de trabalho para validar solicitações de suprimentos.
+- **Segurança**: Configurações de perfil, senha e notificações.
 
 ## Getting Started
 
@@ -45,10 +45,11 @@ src/
 
 ## Environment Variables
 
-Create a `.env.local` file in the root directory for environment variables:
+Crie um arquivo `.env.local` na raiz (ou configure no Vercel) com estas variáveis do **InsForge**:
 
 ```env
-NEXT_PUBLIC_API_URL=your_api_url_here
+NEXT_PUBLIC_INSFORGE_BASE_URL=seu_base_url_do_insforge
+NEXT_PUBLIC_INSFORGE_ANON_KEY=seu_anon_key_do_insforge
 ```
 
 ## Learn More
