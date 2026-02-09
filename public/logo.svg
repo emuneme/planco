@@ -1,0 +1,12 @@
+<svg width="243" height="100" viewBox="0 0 243 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M10 20L45 10V90L10 80V20Z" fill="#D1D5DB"/>
+  <path d="M45 10L80 20V80L45 90V10Z" fill="#E5E7EB"/>
+  <rect x="15" y="30" width="8" height="8" fill="#38BDF8"/>
+  <rect x="25" y="25" width="8" height="8" fill="#38BDF8"/>
+  <rect x="15" y="45" width="8" height="8" fill="#38BDF8"/>
+  <rect x="25" y="40" width="8" height="8" fill="#38BDF8"/>
+  <rect x="50" y="30" width="20" height="10" fill="#9CA3AF"/>
+  <rect x="50" y="50" width="20" height="10" fill="#9CA3AF"/>
+  <text x="90" y="65" font-family="Inter, sans-serif" font-weight="900" font-size="44" fill="#9CA3AF" style="letter-spacing: -2px;">PLAN</text>
+  <text x="195" y="65" font-family="Inter, sans-serif" font-weight="900" font-size="44" fill="#0EA5E9" style="letter-spacing: -2px;">CO</text>
+</svg>
