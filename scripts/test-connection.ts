@@ -30,7 +30,7 @@ async function main() {
 
         // It's expected to fail if the table doesn't exist, but if it connects it's a success in terms of network
         // Better: check auth
-        const { data: authData, error: authError } = await insforge.auth.getSession();
+        const { data: authData, error: authError } = await (insforge.auth as any).getSession();
 
         if (authError) {
             console.error('❌ Auth Check Failed:', authError.message);
