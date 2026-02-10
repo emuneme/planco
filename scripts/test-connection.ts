@@ -26,7 +26,7 @@ async function main() {
 
     try {
         // Try to get the server health or just a simple query
-        const { data, error } = await insforge.from('_test_connection_').select('*').limit(1);
+        const { data, error } = await (insforge as any).database.from('_test_connection_').select('*').limit(1);
 
         // It's expected to fail if the table doesn't exist, but if it connects it's a success in terms of network
         // Better: check auth
