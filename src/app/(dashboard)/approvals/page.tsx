@@ -5,8 +5,9 @@ import { Search, History, Clock } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Approvals({ searchParams }: { searchParams: { limit?: string } }) {
-    const limit = Number(searchParams.limit) || 10;
+export default async function Approvals({ searchParams }: { searchParams: Promise<{ limit?: string }> }) {
+    const { limit: limitParam } = await searchParams;
+    const limit = Number(limitParam) || 10;
 
     // 1. Buscar Aprovações Pendentes
     const { data: pending = [] } = await insforge.database

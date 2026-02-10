@@ -6,8 +6,9 @@ import { Search, Filter } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Projects({ searchParams }: { searchParams: { q?: string } }) {
-    const query = searchParams.q || '';
+export default async function Projects({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+    const { q } = await searchParams;
+    const query = q || '';
 
     // 1. Buscar todos os projetos com filtro opcional
     let dbQuery = insforge.database
