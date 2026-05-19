@@ -14,7 +14,8 @@ export function NewProjectModal() {
         e.preventDefault();
         setError(null);
 
-        const formData = new FormData(e.currentTarget);
+        const form = e.currentTarget;
+        const formData = new FormData(form);
         const data = {
             name: formData.get('name') as string,
             location: formData.get('location') as string,
@@ -31,7 +32,7 @@ export function NewProjectModal() {
             const result = await createProject(data);
             if (result.success) {
                 setIsOpen(false);
-                (e.target as HTMLFormElement).reset();
+                form.reset();
             } else {
                 setError(result.error || 'Erro ao criar projeto');
             }

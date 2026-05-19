@@ -1,6 +1,6 @@
 
 import { ApprovalList } from '@/components/dashboard/ApprovalList';
-import { insforge } from '@/lib/insforge';
+import { serviceSupabase } from '@/lib/insforge';
 import { Search, History, Clock } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -10,19 +10,23 @@ export default async function Approvals({ searchParams }: { searchParams: Promis
     const limit = Number(limitParam) || 10;
 
     // 1. Buscar Aprovações Pendentes
-    const { data: pending = [] } = await insforge.database
+    const pendingRes = await serviceSupabase
         .from('approvals')
         .select('*, projects(name)')
         .eq('status', 'pending')
         .order('created_at', { ascending: false });
+    const pending = pendingRes.data ?? [];
+    if (pendingRes.error) console.error('Error fetching pending approvals:', JSON.stringify(pendingRes.error, null, 2));
 
     // 2. Buscar Histórico (Aprovados/Rejeitados)
-    const { data: history = [] } = await insforge.database
+    const historyRes = await serviceSupabase
         .from('approvals')
         .select('*, projects(name)')
         .neq('status', 'pending')
         .order('created_at', { ascending: false })
         .limit(limit);
+    const history = historyRes.data ?? [];
+    if (historyRes.error) console.error('Error fetching approvals history:', JSON.stringify(historyRes.error, null, 2));
 
     const formatApproval = (app: any) => ({
         ...app,

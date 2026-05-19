@@ -3,21 +3,25 @@ import { StatCard } from '@/components/dashboard/StatCard';
 import { ApprovalList } from '@/components/dashboard/ApprovalList';
 import { CostChart } from '@/components/dashboard/CostChart';
 import { Wallet, TrendingUp, AlertCircle } from 'lucide-react';
-import { insforge } from '@/lib/insforge';
+import { serviceSupabase } from '@/lib/insforge';
 
 export const dynamic = 'force-dynamic';
 
 export default async function Dashboard() {
     // 1. Buscar Projetos
-    const { data: projects = [] } = await insforge.database
+    const projectsRes = await serviceSupabase
         .from('projects')
         .select('*');
+    const projects = projectsRes.data ?? [];
+    if (projectsRes.error) console.error('Error fetching projects:', JSON.stringify(projectsRes.error, null, 2));
 
     // 2. Buscar Aprovações Pendentes
-    const { data: approvals = [] } = await insforge.database
+    const approvalsRes = await serviceSupabase
         .from('approvals')
         .select('*, projects(name)')
         .eq('status', 'pending');
+    const approvals = approvalsRes.data ?? [];
+    if (approvalsRes.error) console.error('Error fetching approvals:', JSON.stringify(approvalsRes.error, null, 2));
 
     // Mapear approvals para incluir o nome do projeto
     const formattedApprovals = (approvals as any[]).map(app => ({

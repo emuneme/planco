@@ -1,7 +1,7 @@
 
 import { NewProjectModal } from '@/components/dashboard/NewProjectModal';
 import { ProjectCard } from '@/components/dashboard/ProjectCard';
-import { insforge } from '@/lib/insforge';
+import { serviceSupabase } from '@/lib/insforge';
 import { Search, Filter } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -11,7 +11,7 @@ export default async function Projects({ searchParams }: { searchParams: Promise
     const query = q || '';
 
     // 1. Buscar todos os projetos com filtro opcional
-    let dbQuery = insforge.database
+    let dbQuery = serviceSupabase
         .from('projects')
         .select('*');
 
@@ -20,7 +20,9 @@ export default async function Projects({ searchParams }: { searchParams: Promise
         dbQuery = dbQuery.ilike('name', `%${query}%`);
     }
 
-    const { data: projects = [] } = await dbQuery.order('created_at', { ascending: false });
+    const projectsRes = await dbQuery.order('created_at', { ascending: false });
+    const projects = projectsRes.data ?? [];
+    if (projectsRes.error) console.error('Error fetching projects:', JSON.stringify(projectsRes.error, null, 2));
 
     return (
         <div className="space-y-8">

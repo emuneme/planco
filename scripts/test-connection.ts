@@ -2,40 +2,34 @@
 import dotenv from 'dotenv';
 import path from 'path';
 
-// Load environment variables from .env.local
+// Load environment variables from .env.local if available, otherwise .env
 dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
-import { createClient } from '@insforge/sdk';
+import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_INSFORGE_BASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_INSFORGE_BASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
     console.error('❌ Missing environment variables');
     process.exit(1);
 }
 
-const insforge = createClient({
-    baseUrl: supabaseUrl,
-    anonKey: supabaseAnonKey,
-});
+const insforge = createClient(supabaseUrl, supabaseAnonKey);
 
 async function main() {
     console.log('🔄 Testing InsForge connection...');
     console.log(`📡 URL: ${supabaseUrl}`);
 
     try {
-        // Try to get the server health or just a simple query
-        const { data, error } = await (insforge as any).database.from('_test_connection_').select('*').limit(1);
+        // Try a simple DB query against a known table to verify connectivity
+        const { data, error } = await insforge.from('projects').select('*').limit(1);
 
-        // It's expected to fail if the table doesn't exist, but if it connects it's a success in terms of network
-        // Better: check auth
-        const { data: authData, error: authError } = await (insforge.auth as any).getSession();
-
-        if (authError) {
-            console.error('❌ Auth Check Failed:', authError.message);
+        if (error) {
+            console.error('❌ DB Query Failed:', error);
         } else {
-            console.log('✅ Auth Service Connection: Success');
+            console.log('✅ Database Connection: Success', Array.isArray(data) ? `returned ${data.length} rows` : '');
         }
 
     } catch (error) {

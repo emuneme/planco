@@ -1,5 +1,5 @@
 
-import { insforge } from '@/lib/insforge';
+import { serviceSupabase } from '@/lib/insforge';
 import { ArrowDownRight, ArrowUpRight, BarChart3, CreditCard } from 'lucide-react';
 import { ExportPdfButton } from '@/components/dashboard/ExportPdfButton';
 
@@ -7,9 +7,11 @@ export const dynamic = 'force-dynamic';
 
 export default async function Finance() {
     // 1. Buscar dados financeiros dos projetos
-    const { data: projects = [] } = await (insforge as any).database
+    const projectsRes = await serviceSupabase
         .from('projects')
         .select('name, budget_total, budget_spent');
+    const projects = projectsRes.data ?? [];
+    if (projectsRes.error) console.error('Error fetching projects for finance view:', JSON.stringify(projectsRes.error, null, 2));
 
     const totalBudget = (projects as any[])?.reduce((acc, p) => acc + Number(p.budget_total), 0) || 0;
     const totalSpent = (projects as any[])?.reduce((acc, p) => acc + Number(p.budget_spent), 0) || 0;

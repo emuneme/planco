@@ -1,12 +1,12 @@
 
 'use server';
 
-import { insforge } from './insforge';
+import { serviceSupabase } from './insforge';
 import { revalidatePath } from 'next/cache';
 
 export async function updateApprovalStatus(id: string, status: 'approved' | 'rejected') {
     try {
-        const { error } = await (insforge as any).database
+        const { error } = await serviceSupabase
             .from('approvals')
             .update({ status })
             .eq('id', id);
@@ -23,7 +23,7 @@ export async function updateApprovalStatus(id: string, status: 'approved' | 'rej
 
 export async function createProject(formData: { name: string; location: string; budget_total: number; status: string }) {
     try {
-        const { error } = await (insforge as any).database
+const { error } = await serviceSupabase
             .from('projects')
             .insert([{
                 ...formData,
