@@ -3,7 +3,7 @@ import { StatCard } from '@/components/dashboard/StatCard';
 import { ApprovalList } from '@/components/dashboard/ApprovalList';
 import { CostChart } from '@/components/dashboard/CostChart';
 import { Wallet, TrendingUp, AlertCircle } from 'lucide-react';
-import { serviceSupabase } from '@/lib/insforge';
+import { serviceSupabase } from '@/lib/supabase';
 
 export const dynamic = 'force-dynamic';
 

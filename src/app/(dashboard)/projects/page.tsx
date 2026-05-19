@@ -1,7 +1,7 @@
 
 import { NewProjectModal } from '@/components/dashboard/NewProjectModal';
 import { ProjectCard } from '@/components/dashboard/ProjectCard';
-import { serviceSupabase } from '@/lib/insforge';
+import { serviceSupabase } from '@/lib/supabase';
 import { Search, Filter } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';

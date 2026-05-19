@@ -8,23 +8,23 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_INSFORGE_BASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-    console.error('❌ Missing environment variables');
+    console.error('❌ Missing environment variables. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, or SUPABASE_URL and SUPABASE_ANON_KEY.');
     process.exit(1);
 }
 
-const insforge = createClient(supabaseUrl, supabaseAnonKey);
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 async function main() {
-    console.log('🔄 Testing InsForge connection...');
+    console.log('🔄 Testing Supabase connection...');
     console.log(`📡 URL: ${supabaseUrl}`);
 
     try {
         // Try a simple DB query against a known table to verify connectivity
-        const { data, error } = await insforge.from('projects').select('*').limit(1);
+        const { data, error } = await supabase.from('projects').select('*').limit(1);
 
         if (error) {
             console.error('❌ DB Query Failed:', error);

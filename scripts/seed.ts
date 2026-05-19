@@ -5,8 +5,8 @@ import { createClient } from '@supabase/supabase-js';
 dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
-const supabaseUrl = (process.env.NEXT_PUBLIC_INSFORGE_BASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL) as string;
-const supabaseAnonKey = (process.env.NEXT_PUBLIC_INSFORGE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) as string;
+const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL) as string;
+const supabaseAnonKey = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY) as string;
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
@@ -20,7 +20,7 @@ if (!seedKey) {
   process.exit(1);
 }
 
-const insforge = createClient(supabaseUrl, seedKey);
+const supabase = createClient(supabaseUrl, seedKey);
 
 async function run() {
   try {
@@ -33,7 +33,7 @@ async function run() {
       { name: 'Ponte do Rio Verde', location: 'Tete - Rio Verde', status: 'completed', budget_total: 8000000, budget_spent: 8000000 },
     ];
 
-    const { data: insertedProjects, error: projError } = await (insforge as any).from('projects').insert(projects).select('*');
+    const { data: insertedProjects, error: projError } = await supabase.from('projects').insert(projects).select('*');
     if (projError) {
       console.error('Failed to insert projects:', projError);
       process.exit(1);
@@ -57,7 +57,7 @@ async function run() {
     if (approvals.length === 0) {
       console.warn('No approvals to insert (project lookups failed).');
     } else {
-      const { data: insertedApprovals, error: apprError } = await (insforge as any).from('approvals').insert(approvals).select('*');
+      const { data: insertedApprovals, error: apprError } = await supabase.from('approvals').insert(approvals).select('*');
       if (apprError) {
         console.error('Failed to insert approvals:', apprError);
         process.exit(1);

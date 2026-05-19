@@ -45,11 +45,12 @@ src/
 
 ## Environment Variables
 
-Crie um arquivo `.env.local` na raiz (ou configure no Vercel) com estas variáveis do **InsForge**:
+Crie um arquivo `.env.local` na raiz (ou configure no Vercel) com estas variáveis do **Supabase**:
 
 ```env
-NEXT_PUBLIC_INSFORGE_BASE_URL=seu_base_url_do_insforge
-NEXT_PUBLIC_INSFORGE_ANON_KEY=seu_anon_key_do_insforge
+NEXT_PUBLIC_SUPABASE_URL=https://<seu-projeto>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=seu_anon_key
+SUPABASE_SERVICE_ROLE_KEY=sua_service_role_key
 ```
 
 ## Learn More

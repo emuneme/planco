@@ -1,7 +1,7 @@
 
 'use server';
 
-import { serviceSupabase } from './insforge';
+import { serviceSupabase } from './supabase';
 import { revalidatePath } from 'next/cache';
 
 export async function updateApprovalStatus(id: string, status: 'approved' | 'rejected') {

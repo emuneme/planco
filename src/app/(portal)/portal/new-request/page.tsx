@@ -1,5 +1,5 @@
 
-import { serviceSupabase } from '@/lib/insforge';
+import { serviceSupabase } from '@/lib/supabase';
 import NewRequestForm from '@/components/portal/NewRequestForm';
 import { ArrowLeft } from 'lucide-react';
 

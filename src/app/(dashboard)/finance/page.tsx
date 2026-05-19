@@ -1,5 +1,5 @@
 
-import { serviceSupabase } from '@/lib/insforge';
+import { serviceSupabase } from '@/lib/supabase';
 import { ArrowDownRight, ArrowUpRight, BarChart3, CreditCard } from 'lucide-react';
 import { ExportPdfButton } from '@/components/dashboard/ExportPdfButton';
 

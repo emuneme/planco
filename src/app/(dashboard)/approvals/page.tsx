@@ -1,6 +1,6 @@
 
 import { ApprovalList } from '@/components/dashboard/ApprovalList';
-import { serviceSupabase } from '@/lib/insforge';
+import { serviceSupabase } from '@/lib/supabase';
 import { Search, History, Clock } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';

@@ -1,6 +1,6 @@
 # Database Setup for Planco
 
-Este projeto usa InsForge/Supabase para conexão com o banco de dados.
+Este projeto usa Supabase para conexão com o banco de dados.
 
 ## Tabelas necessárias
 
@@ -9,9 +9,9 @@ Este projeto usa InsForge/Supabase para conexão com o banco de dados.
 
 ## Como aplicar
 
-### 1. Use o editor SQL do Supabase/InsForge
+### 1. Use o editor SQL do Supabase
 
-1. Abra o dashboard do seu projeto InsForge/Supabase.
+1. Abra o dashboard do seu projeto Supabase.
 2. Vá para o editor SQL.
 3. Cole o conteúdo de `database/schema.sql` e execute.
 
@@ -26,9 +26,10 @@ psql "$DATABASE_URL" -f database/schema.sql
 Já configurado em `env.example`:
 
 ```env
-NEXT_PUBLIC_INSFORGE_BASE_URL=https://seu_projeto.insforge.dev
-NEXT_PUBLIC_INSFORGE_ANON_KEY=sb_publishable_xxx
+NEXT_PUBLIC_SUPABASE_URL=https://seu_projeto.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_xxx
+SUPABASE_SERVICE_ROLE_KEY=sua_service_role_key
 ```
 
 > O app atual usa apenas as tabelas `projects` e `approvals`.
-> Se você quiser autenticação completa, ajuste as políticas no dashboard do Supabase/InsForge.
+> Se você quiser autenticação completa, ajuste as políticas no dashboard do Supabase.
